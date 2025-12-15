@@ -19,6 +19,7 @@ if __name__ == "__main__":
     ]
     plants: Plant = [None] * factory_size
     i: int = 0
+    print("=== Plant Factory Output ===")
     while (i < factory_size):
         plants[i] = Plant(factory[i][0], factory[i][1], factory[i][2])
         print("Created: ", end="")
