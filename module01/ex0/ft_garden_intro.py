@@ -1,6 +1,6 @@
 #!/bin/python3
 
-if  __name__ == "__main__":
+if __name__ == "__main__":
     name: str = "cactus"
     height: str = "18m"
     age: str = "100 years"

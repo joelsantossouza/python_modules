@@ -22,23 +22,28 @@ class Flower(Plant):
         print(f", {self.color} color")
 
 
-
 class Tree(Plant):
-    def __init__(self, name: str, height: int, age: int, trunk_diameter: int) -> None:
+    def __init__(self, name: str, height: int, age: int,
+                 diameter: int) -> None:
         super().__init__(name, height, age)
-        self.trunk_diameter = trunk_diameter
+        self.diameter = diameter
 
     def produce_shade(self) -> None:
-        print(f"{self.name} provides {(self.height * self.trunk_diameter) / 100} square meters of shade")
+        print(
+            f"{self.name} provides "
+            f"{(self.height * self.diameter) / 100} "
+            "square meters of shade"
+        )
 
     def get_info(self) -> None:
         print("[Tree] - ", end="")
         super().get_info(end="")
-        print(f", {self.trunk_diameter}cm diameter")
+        print(f", {self.diameter}cm diameter")
 
 
 class Vegetable(Plant):
-    def __init__(self, name: str, height: int, age: int, harvest_season: str, nutritional_value: str) -> None:
+    def __init__(self, name: str, height: int, age: int,
+                 harvest_season: str, nutritional_value: str) -> None:
         super().__init__(name, height, age)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
