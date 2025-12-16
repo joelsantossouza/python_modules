@@ -35,4 +35,5 @@ def test_temperature_input() -> None:
     print(f"\nTesting extreme max temperature: {extreme_max}")
     check_temperature(extreme_max)
 
+
 # test_temperature_input()
