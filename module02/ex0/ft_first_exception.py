@@ -15,6 +15,7 @@ def check_temperature(temp_str: str) -> int:
         print(f"Temperature {temp_str}°C is perfect for plants!")
         return temp_int
 
+
 def test_temperature_input() -> None:
     print("=== Garden Temperature Checker ===")
     good_input: str = "25"
@@ -34,4 +35,4 @@ def test_temperature_input() -> None:
     print(f"\nTesting extreme max temperature: {extreme_max}")
     check_temperature(extreme_max)
 
-test_temperature_input()
+# test_temperature_input()
