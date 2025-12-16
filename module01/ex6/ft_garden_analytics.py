@@ -1,13 +1,14 @@
 class Plant:
     type: str = "Plant"
     height_validation: bool = True
+
     def __init__(self, name: str, height: int) -> None:
         self.name = name
         if self.validate(height):
             self.height = height
 
     def grow(self, size: int) -> None:
-        if self.height_validation and self.validate(self.height + size) == False:
+        if self.height_validation and not self.validate(self.height + size):
             print("Error: Invalid height for plant")
             return
         self.height += size
@@ -22,7 +23,7 @@ class Plant:
 
     @classmethod
     def toggle_height_validation(cls) -> None:
-        if cls.height_validation == True:
+        if cls.height_validation:
             cls.height_validation = False
         else:
             cls.height_validation = True
@@ -30,17 +31,19 @@ class Plant:
 
 class FloweringPlant(Plant):
     type: str = "FloweringPlant"
+
     def __init__(self, name: str, height: int, color: str) -> None:
         super().__init__(name, height)
         self.color = color
 
-    def get_info(self, end: str ="\n") -> None:
+    def get_info(self, end: str = "\n") -> None:
         super().get_info(end="")
         print(f", {self.color} flowers (blooming)", end=end)
 
 
 class PrizeFlower(FloweringPlant):
     type: str = "PrizeFlower"
+
     def __init__(self, name: str, height: int, color: str, prize: int) -> None:
         super().__init__(name, height, color)
         self.prize = prize
@@ -89,11 +92,19 @@ class Garden:
 
     def get_info(self) -> None:
         print(f"=== {self.owner}'s Garden Report ===")
-        print(f"Plants in garden:")
+        print("Plants in garden:")
         for plant in self.plants:
             plant.get_info()
-        print(f"\nPlants added: {self.size()}, Total growth: {self.stats.growth}cm")
-        print(f"Plants types: {self.stats.regular} regular, {self.stats.flowering} flowering, {self.stats.prize_flower} prize flowers")
+        print(
+            f"\nPlants added: {self.size()}, "
+            f"Total growth: {self.stats.growth}cm"
+        )
+        print(
+            "Plants types: "
+            f"{self.stats.regular} regular, "
+            f"{self.stats.flowering} flowering, "
+            f"{self.stats.prize_flower} prize flowers"
+        )
 
 
 class GardenManager:
