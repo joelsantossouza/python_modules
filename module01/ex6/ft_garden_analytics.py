@@ -125,7 +125,7 @@ class GardenManager:
         print("Garden scores:")
         for garden in self.gardens:
             print(f"- {garden.owner} -> {garden.stats.score} points")
-        print(f"Total gardens managed: {self.number_of_gardens()}")
+        print(f"\nTotal gardens managed: {self.number_of_gardens()}")
 
 
 if __name__ == "__main__":
