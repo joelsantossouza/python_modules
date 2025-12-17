@@ -11,7 +11,7 @@ class SecurePlant:
         self.__height = height
 
     def set_age(self, age: int) -> None:
-        if age < 0 or age > 100000:
+        if age < 0:
             print("Security: Impossible age")
             return
         self.__age = age
@@ -41,9 +41,6 @@ if __name__ == "__main__":
 
     print("\nTrying to set age to -5...")
     rose.set_age(-5)
-
-    print("\nTrying to set age to 200000...")
-    rose.set_age(200000)
 
     print("\nCurrent plant state: ", end="")
     rose.get_info()
