@@ -32,7 +32,7 @@ def test_watering_system() -> None:
     water_plants(bad_list)
 
 
-if __name__ == "__main__":
-    print("=== Garden Watering System ===")
-    test_watering_system()
-    print("\nCleanup always happens, even with errors!")
+# if __name__ == "__main__":
+#     print("=== Garden Watering System ===")
+#     test_watering_system()
+#     print("\nCleanup always happens, even with errors!")
