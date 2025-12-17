@@ -1,4 +1,7 @@
 def check_temperature(temp_str: str) -> int:
+    """
+    Validade temperature input
+    """
     try:
         temp_int: int = int(temp_str)
         if temp_int < 0:
@@ -15,6 +18,9 @@ def check_temperature(temp_str: str) -> int:
 
 
 def test_temperature_input() -> None:
+    """
+    Test check_temperature function with different input
+    """
     print("=== Garden Temperature Checker ===")
     good_input: str = "25"
     bad_input: str = "abc"

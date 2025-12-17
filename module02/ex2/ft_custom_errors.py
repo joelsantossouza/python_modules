@@ -1,16 +1,28 @@
 class GardenError(Exception):
+    """
+    Garden's geral errors
+    """
     pass
 
 
 class PlantError(GardenError):
+    """
+    Plants's specifics errors
+    """
     pass
 
 
 class WaterError(GardenError):
+    """
+    Water's specifics errors
+    """
     pass
 
 
 def test_plant_error() -> None:
+    """
+    Raising plant error
+    """
     print("Testing PlantError...")
     try:
         print("Leaving the land very dry")
@@ -20,6 +32,9 @@ def test_plant_error() -> None:
 
 
 def test_water_error() -> None:
+    """
+    Rainsing water error
+    """
     print("Testing WaterError...")
     try:
         print("Wasting a lot of water from the tank")
@@ -29,6 +44,9 @@ def test_water_error() -> None:
 
 
 def test_garden_error() -> None:
+    """
+    Garden's geral errors
+    """
     print("Testing GardenError...")
     try:
         print("Leaving the land very dry")
@@ -44,9 +62,10 @@ def test_garden_error() -> None:
 
 
 # if __name__ == "__main__":
-#     print("=== Custom Garden Errors Demo ===")
+#     print("=== Custom Garden Errors Demo ===\n")
 #     test_plant_error()
 #     print()
 #     test_water_error()
 #     print()
 #     test_garden_error()
+#     print("\nAll custom error types work correctly!")

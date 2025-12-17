@@ -1,4 +1,7 @@
 def garden_operations(error: str) -> None:
+    """
+    Forcing Errors conditions to be caught on tests
+    """
     if error == "ValueError":
         int("non-numeric string")
     elif error == "ZeroDivisionError":
@@ -11,6 +14,9 @@ def garden_operations(error: str) -> None:
 
 
 def test_error_types() -> None:
+    """
+    Test Errors condition made manually
+    """
     print("=== Garden Error Types Demo ===")
 
     print("\nTesting ValueError...")

@@ -1,4 +1,7 @@
 def water_plants(plant_list: list[str]) -> None:
+    """
+    Water all plants on a givin list
+    """
     print("Opening watering system")
     success: bool = False
     try:
@@ -16,6 +19,9 @@ def water_plants(plant_list: list[str]) -> None:
 
 
 def test_watering_system() -> None:
+    """
+    Tests specific cases
+    """
     print("\nTesting normal watering...")
     good_list: list[str] = [
         "tomato",

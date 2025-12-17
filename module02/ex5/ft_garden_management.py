@@ -1,20 +1,36 @@
 class GardenError(Exception):
+    """
+    Geral garden errors
+    """
     pass
 
 
 class PlantError(GardenError):
+    """
+    Plant's specific errors
+    """
     pass
 
 
 class WaterError(GardenError):
+    """
+    Water's specific error
+    """
     pass
 
 
 class SunlightError(GardenError):
+    """
+    Sunlight's specific error
+    """
     pass
 
 
 class GardenManager:
+    """
+    Manages a list of gardens, that eventually has a list of plants
+    """
+
     def garden_size(self, list_of_plants, check_none: bool = True) -> int:
         size: int = 0
         for plant in list_of_plants:
@@ -87,8 +103,6 @@ class GardenManager:
 # if __name__ == "__main__":
 #     print("=== Garden Management System ===")
 #     garden: GardenManager = GardenManager()
-#
-#     plants = [
 #         ["tomato", 5, 8],
 #         ["lettuce", 0, 8],
 #         ["apple", 19, 8],
@@ -98,14 +112,8 @@ class GardenManager:
 #     ]
 #     print("\nAdding plants to garden...")
 #     garden.add_plants(plants)
-#
-#     print("\nWatering plants...")
 #     garden.water_plants()
-#
-#     print("\nChecking plant health...")
 #     garden.check_plant_health()
-#
-#     print("\nTesting error recovery...")
 #     garden.recovery()
 #
 #     print("\nGarden management system test complete!")
