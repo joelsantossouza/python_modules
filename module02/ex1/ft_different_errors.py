@@ -47,4 +47,4 @@ def test_error_types() -> None:
     print("\nAll error types tested successfully")
 
 
-test_error_types()
+# test_error_types()
