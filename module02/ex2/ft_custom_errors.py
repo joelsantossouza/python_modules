@@ -43,10 +43,10 @@ def test_garden_error() -> None:
         print(f"Caught GardenError: {e}")
 
 
-if __name__ == "__main__":
-    print("=== Custom Garden Errors Demo ===")
-    test_plant_error()
-    print()
-    test_water_error()
-    print()
-    test_garden_error()
+# if __name__ == "__main__":
+#     print("=== Custom Garden Errors Demo ===")
+#     test_plant_error()
+#     print()
+#     test_water_error()
+#     print()
+#     test_garden_error()
