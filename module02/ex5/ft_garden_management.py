@@ -85,7 +85,7 @@ class GardenManager:
                         f"Sunlight hours {plant[2]} is too high (max 12)"
                     )
                 print(
-                    f"{plant[0]}: healthy (water: {plant[1]}, sun: {plant[2]}"
+                    f"{plant[0]}: healthy (water: {plant[1]}, sun: {plant[2]})"
                 )
             except GardenError as e:
                 print(f"Error checking {plant[0]}: {e}")
@@ -103,6 +103,7 @@ class GardenManager:
 # if __name__ == "__main__":
 #     print("=== Garden Management System ===")
 #     garden: GardenManager = GardenManager()
+#     plants = [
 #         ["tomato", 5, 8],
 #         ["lettuce", 0, 8],
 #         ["apple", 19, 8],
@@ -112,8 +113,14 @@ class GardenManager:
 #     ]
 #     print("\nAdding plants to garden...")
 #     garden.add_plants(plants)
+#
+#     print("\nWatering plants...")
 #     garden.water_plants()
+#
+#     print("\nChecking plants health...")
 #     garden.check_plant_health()
+#
+#     print("\nTesting error recovery...")
 #     garden.recovery()
 #
 #     print("\nGarden management system test complete!")
