@@ -3,8 +3,11 @@ import sys
 if __name__ == "__main__":
     print("=== Player Score Analytics ===")
     argc: int = len(sys.argv) - 1
-    if argc < 2:
-        print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+    if argc < 1:
+        print(
+            "No scores provided. Usage: python3 ft_score_analytics.py "
+            "<score1> <score2> ..."
+        )
     else:
         scores: list[int] = [None] * argc
         i: int = 0

@@ -12,6 +12,7 @@ def generate_1000_events() -> str:
     for event in range(413):
         yield "irrelevant event"
 
+
 def fibonacci_generator(n: int) -> int:
     """Generator of 0 to n fibonacci numbers"""
     if n <= 0:
@@ -28,7 +29,7 @@ def fibonacci_generator(n: int) -> int:
 
 def is_prime(n: int) -> bool:
     """
-    Returns True or False if 
+    Returns True or False if
     the number is or not prime respectively
     """
     if n < 2:

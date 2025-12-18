@@ -1,11 +1,16 @@
 if __name__ == "__main__":
     print("=== Achievement Tracker System ===\n")
 
-    alice: set[str] = {"first_kill", "level_10", "treasure_hunter", "speed_demon"}
+    alice: set[str] = {
+        "first_kill", "level_10", "treasure_hunter", "speed_demon"
+    }
     print(f"Player alice achievements: {alice}")
     bob: set[str] = {"first_kill", "level_10", "boss_slayer", "collector"}
     print(f"Player bob achievements: {bob}")
-    charlie: set[str] = {"level_10", "treasure_hunter", "boss_slayer", "speed_demon", "perfectionist"}
+    charlie: set[str] = {
+        "level_10", "treasure_hunter", "boss_slayer",
+        "speed_demon", "perfectionist"
+    }
     print(f"Player charlie achievements: {charlie}")
 
     print("\n=== Achievement Analytics ===")
