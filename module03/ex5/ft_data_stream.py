@@ -42,23 +42,25 @@ def is_prime(n: int) -> bool:
     return True
 
 
-def prime_generator(n: int) -> int:
+def prime_list(n: int) -> list[int]:
     """Generator of 0 to n prime numbers"""
     if n <= 0:
-        yield
+        return None
     else:
+        prime_numbers: list[int] = [None] * n
         prime: int = 2
-        for _ in range(n):
+        for i in range(n):
             while (not is_prime(prime)):
                 prime += 1
-            yield prime
+            prime_numbers[i] = prime
             prime += 1
+        return prime_numbers
 
 
 if __name__ == "__main__":
     print("=== Game Data Stream Processor ===")
 
-    print("\nProcessing 1000 game events...")
+    print("\nProcessing 1000 game events...\n")
     all_events = generate_1000_events()
 
     print(
@@ -93,8 +95,8 @@ if __name__ == "__main__":
         print(f"{next(sequence)}, ", end="")
     print(f"{next(sequence)}")
 
-    print("Prime numbers(first 5): ", end="")
-    primes = prime_generator(5)
+    print("Prime numbers (first 5): ", end="")
+    primes = prime_list(5)
     for n in range(4):
-        print(f"{next(primes)}, ", end="")
-    print(f"{next(primes)}")
+        print(f"{primes[n]}, ", end="")
+    print(f"{primes[4]}")
