@@ -9,7 +9,7 @@ if __name__ == "__main__":
             print("\nSECURE EXTRACTION:")
             print(file.read())
 
-        with open("new_classified_data.txt", "w") as file:
+        with open("security_protocols.txt", "w") as file:
             print("\nSECURE PRESERVATION:")
             text: str = "{[}CLASSIFIED{]} New security protocols archived"
             file.write(text)
