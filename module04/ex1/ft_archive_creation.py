@@ -8,13 +8,15 @@ if __name__ == "__main__":
 
             print("\nInscribing preservation data...")
             text: str = \
-            "{[}ENTRY 001{]} New quantum algorithm discovered\n" \
-            "{[}ENTRY 002{]} Efficiency increased by 347%\n" \
-            "{[}ENTRY 003{]} Archived by Data Archivist trainee\n"
+                "{[}ENTRY 001{]} New quantum algorithm discovered\n" \
+                "{[}ENTRY 002{]} Efficiency increased by 347%\n" \
+                "{[}ENTRY 003{]} Archived by Data Archivist trainee\n"
             file.write(text)
             print(text)
 
             print("Data inscription complete. Storage unit sealed.")
-            print("Archive 'new_discovery.txt' ready for long-term preservation.")
+            print(
+                "Archive 'new_discovery.txt' ready for long-term preservation."
+            )
     except Exception:
         print("ERROR: Could not create storage vault")
