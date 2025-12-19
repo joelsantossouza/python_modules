@@ -54,38 +54,38 @@ if __name__ == "__main__":
     print("\n=== Alice's Inventory ===")
     weapon: dict[None] = alice["weapons"]
     print(
-        f"{weapon["name"]} "
-        f"{weapon["type"]}: "
-        f"{weapon["quantity"]}x @ "
-        f"{weapon["price"]} gold each = "
-        f"{weapon["price"] * weapon["quantity"]} gold"
+        f"{weapon['name']} "
+        f"{weapon['type']}: "
+        f"{weapon['quantity']}x @ "
+        f"{weapon['price']} gold each = "
+        f"{weapon['price'] * weapon['quantity']} gold"
     )
 
     consumable: dict[None] = alice["consumables"]
     print(
-        f"{consumable["name"]} "
-        f"{consumable["type"]}: "
-        f"{consumable["quantity"]}x @ "
-        f"{consumable["price"]} gold each = "
-        f"{consumable["price"] * consumable["quantity"]} gold"
+        f"{consumable['name']} "
+        f"{consumable['type']}: "
+        f"{consumable['quantity']}x @ "
+        f"{consumable['price']} gold each = "
+        f"{consumable['price'] * consumable['quantity']} gold"
     )
 
     armor: dict[None] = alice["armors"]
     print(
-        f"{armor["name"]} "
-        f"{armor["type"]}: "
-        f"{armor["quantity"]}x @ "
-        f"{armor["price"]} gold each = "
-        f"{armor["price"] * armor["quantity"]} gold"
+        f"{armor['name']} "
+        f"{armor['type']}: "
+        f"{armor['quantity']}x @ "
+        f"{armor['price']} gold each = "
+        f"{armor['price'] * armor['quantity']} gold"
     )
 
-    print(f"\nInventory value: {alice["value"]} gold")
-    print(f"Item count: {alice["items"]} items")
+    print(f"\nInventory value: {alice['value']} gold")
+    print(f"Item count: {alice['items']} items")
     print(
         "Categories: "
-        f"weapon({weapon["quantity"]}), "
-        f"consumable({consumable["quantity"]}), "
-        f"armor({armor["quantity"]})"
+        f"weapon({weapon['quantity']}), "
+        f"consumable({consumable['quantity']}), "
+        f"armor({armor['quantity']})"
     )
 
     print("\n=== Transaction: Alice gives Bob 2 potions ===")
@@ -98,8 +98,8 @@ if __name__ == "__main__":
     print("Transaction successful!")
 
     print("\n=== Updated Inventories ===")
-    print(f"Alice potions: {alice["consumables"]["quantity"]}")
-    print(f"Bob potions: {bob["consumables"]["quantity"]}")
+    print(f"Alice potions: {alice['consumables']['quantity']}")
+    print(f"Bob potions: {bob['consumables']['quantity']}")
 
     print("\n=== Inventory Analytics ===")
     alice_value = alice["value"]
@@ -120,6 +120,6 @@ if __name__ == "__main__":
 
     print(
         "Rarest items: "
-        f"{sword["name"]}, "
-        f"{magic_ring["name"]}"
+        f"{sword['name']}, "
+        f"{magic_ring['name']}"
     )
