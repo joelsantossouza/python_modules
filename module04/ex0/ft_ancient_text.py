@@ -7,6 +7,6 @@ if __name__ == "__main__":
             print("Connection established...")
             print("\nRECOVERED DATA:")
             print(file.read())
-            print("Data recovery complete. Storage unit disconnected.")
+            print("\nData recovery complete. Storage unit disconnected.")
     except Exception:
         print("ERROR: Storage vault not found")
