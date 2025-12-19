@@ -23,7 +23,7 @@ if __name__ == "__main__":
         point = (x, y, z)
         print(f"Parsed position: {point}")
         distance: float = math.sqrt(point[0]**2 + point[1]**2 + point[2]**2)
-        print(f"Distance between {checkpoint} and {point}: {distance:.2f}\n")
+        print(f"Distance between {checkpoint} and {point}: {distance:.1f}\n")
 
     coordinates: str = "abc,def,ghi"
     print(f"Parsing invalid coordinates: \"{coordinates}\"")
