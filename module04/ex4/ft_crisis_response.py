@@ -4,7 +4,8 @@ if __name__ == "__main__":
     try:
         print("\nCRISIS ALERT: Attempting access to 'lost_archive.txt'...")
         with open("lost_archive.txt", "r") as file:
-            pass
+            print("SUCCESS: Archive recovered - ``Knowledge preserved for humanity''")
+            print("STATUS: Normal operations resumed")
     except FileNotFoundError:
         print("RESPONSE: Archive not found in storage matrix")
         print("STATUS: Crisis handled, system stable")
@@ -14,7 +15,8 @@ if __name__ == "__main__":
     try:
         print("\nCRISIS ALERT: Attempting access to 'classified_vault.txt'...")
         with open("classified_vault.txt", "r") as file:
-            pass
+            print("SUCCESS: Archive recovered - ``Knowledge preserved for humanity''")
+            print("STATUS: Normal operations resumed")
     except PermissionError:
         print("RESPONSE: Security protocols deny access")
         print("STATUS: Crisis handled, security maintained")
