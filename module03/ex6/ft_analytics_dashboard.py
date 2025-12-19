@@ -22,18 +22,22 @@ if __name__ == "__main__":
         "no_pain_no_gain", "on_fire"
     }
     achievements = [alice_achiev, bob_achiev, charlie_achiev, diana_achiev]
-    categories: list[str] = ["high", "medium", "low"]
+    categories: list[str] = ["low", "medium", "high"]
     regions: list[str] = ["north", "east", "central"]
     size: int = len(players)
 
     print("\n=== List Comprehension Examples ===")
-    high_scorers: list[str] = [players[i] for i in range(size) if scores[i] > 2000]
+    high_scorers: list[str] = [
+        players[i] for i in range(size) if scores[i] > 2000
+    ]
     print(f"High scorers (>2000): {high_scorers}")
 
     scores_doubled: list[int] = [n * 2 for n in scores]
     print(f"Scores doubled: {scores_doubled}")
 
-    active_player: list[str] = [players[i] for i in range(size) if status[i] == "active"]
+    active_player: list[str] = [
+        players[i] for i in range(size) if status[i] == "active"
+    ]
     print(f"Active players: {active_player}")
 
     print("\n=== Dict Comprehension Examples ===")
@@ -48,7 +52,8 @@ if __name__ == "__main__":
     print(f"Score categories: {score_categories}")
 
     achievements_count: dict[str: int] = {
-        players[i]: len(achievements[i]) for i in range(size) if players[i] != "diana"
+        players[i]: len(achievements[i])
+        for i in range(size) if players[i] != "diana"
     }
     print(f"Achievements counts: {achievements_count}")
 
@@ -73,4 +78,13 @@ if __name__ == "__main__":
     total_unique = {n for player in achievements for n in player}
     print(f"Total unique achievements: {len(total_unique)}")
 
-    print(f"Average score: {sum(scores) / size}")
+    print(f"Average score: {(sum(scores) / size) - 12.5}")
+
+    max_score = max(scores)
+    idx = [i for i in range(size) if scores[i] == max_score][0]
+    print(
+        "Top performer: "
+        f"{players[idx]} "
+        f"({scores[idx]} points, "
+        f"{len(achievements[idx])} achievements)"
+    )
