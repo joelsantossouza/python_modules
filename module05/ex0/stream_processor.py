@@ -116,3 +116,17 @@ if __name__ == "__main__":
     print(process_log.format_output(result))
 
     print("\n=== Polymorphic Processing Demo ===")
+    print("Processing multiple data types through same interface...")
+    inputs: list[list[Any]] = [
+        [NumericProcessor(), [2, 2, 2]],
+        [TextProcessor(), "Hello World!"],
+        [LogProcessor(), "INFO: System ready"],
+    ]
+    i: int = 1
+    for processor, data in inputs:
+        print(f"Result {i}:")
+        print(processor.process(data))
+        print("----------\n")
+        i += 1
+
+    print("Foundation systems online. Nexus ready for advanced streams.")
