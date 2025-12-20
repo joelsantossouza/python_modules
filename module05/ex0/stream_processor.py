@@ -90,4 +90,29 @@ class LogProcessor(DataProcessor):
             return True
         return False
 
+
 if __name__ == "__main__":
+    print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
+
+    print("\nInitializing Numeric Processor...")
+    nbrs: list[int] = [1, 2, 3, 4, 5]
+    process_nbr: NumericProcessor = NumericProcessor()
+    print(f"Processing data: {nbrs}")
+    result: str = process_nbr.process(nbrs)
+    print(process_nbr.format_output(result))
+
+    print("\nInitializing Text Processor...")
+    text: str = "Hello Nexus World"
+    process_text: TextProcessor = TextProcessor()
+    print(f"Processing data: \"{text}\"")
+    result: str = process_text.process(text)
+    print(process_text.format_output(result))
+
+    print("\nInitializing Log Processor...")
+    log: str = "ERROR: Connection timeout"
+    process_log: LogProcessor = LogProcessor()
+    print(f"Processing data: \"{log}\"")
+    result: str = process_log.process(log)
+    print(process_log.format_output(result))
+
+    print("\n=== Polymorphic Processing Demo ===")
