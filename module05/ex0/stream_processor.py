@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Union
+from typing import Any, List, Dict, Union, Optional
+
 
 class DataProcessor(ABC):
     """A blueprint for the class of data process"""
@@ -17,13 +18,14 @@ class DataProcessor(ABC):
 
 class NumericProcessor(DataProcessor):
     """Process list of numbers returning the total sum, size, average"""
+
     def process(self, data: Any) -> str:
         if not self.validate(data):
             return "Validation: Invalid numeric data"
         total: int = 0
         size: int = 0
         for number in data:
-            total += number 
+            total += number
             size += 1
         avg: float = total / size
         return f"Processed {size} numeric values, sum={total}, avg={avg}"
@@ -37,8 +39,10 @@ class NumericProcessor(DataProcessor):
         except TypeError:
             return False
 
+
 class TextProcessor(DataProcessor):
     """Process strings returning the number of words and size"""
+
     def process(self, data: Any) -> str:
         if not self.validate(data):
             return "Validation: Invalid text data"
@@ -65,8 +69,25 @@ class TextProcessor(DataProcessor):
             return False
 
 
-# class LogProcessor(DataProcessor):
+class LogProcessor(DataProcessor):
+    """Process log information returning a useful message"""
 
-test: TextProcessor = TextProcessor()
+    def process(self, data: Any) -> str:
+        if not self.validate(data):
+            return "Validation: Invalid log data"
+        if data[:7] == "ERROR: ":
+            return f"[ALERT] ERROR level detected: {data[7:]}"
+        elif data[:6] == "INFO: ":
+            return f"[INFO] INFO level detected: {data[6:]}"
 
-print(test.process("Hello Nexus World"))
+    def validate(self, data: Any) -> bool:
+        try:
+            data + "validation"
+        except TypeError:
+            return False
+        if data[:7] == "ERROR: " or data[:6] == "INFO: ":
+            print("Validation: Log entry verified")
+            return True
+        return False
+
+if __name__ == "__main__":
