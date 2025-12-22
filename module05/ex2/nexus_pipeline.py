@@ -45,10 +45,16 @@ class ProcessingPipeline(ABC):
     stages: List[ProcessingStage] = []
 
     def add_stage(self, stage: ProcessingStage) -> None:
-        self.stages.append(stage)
+        if isinstance(stage, (InputStage, TransformStage, OutputStage)):
+            self.stages.append(stage)
+        else:
+            print("ERROR: Invalid type of stage")
 
 
-class 
+class JSONAdapter(ProcessingPipeline):
+    """Process specific input of type JSON"""
+
+    def __init__(self, pipeline_id: int) -> None:
 
 
 if __name__ == "__main__":
