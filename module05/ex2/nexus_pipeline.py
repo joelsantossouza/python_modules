@@ -129,10 +129,49 @@ class CSVAdapter(ProcessingPipeline):
         return parsed
 
 
+class StreamAdapter(ProcessingPipeline):
+    """Process specific input of type Stream"""
+
+    def __init__(self, pipeline_id: int) -> None:
+        if isinstance(pipeline_id, int):
+            self.id = pipeline_id
+        else:
+            print("ERROR: A pipeline ID must be integer")
+
+    def process(self, data: Any) -> Union[str, Any]:
+        if not isinstance(data, List):
+            print("ERROR: You must pass a valid Stream format")
+            return None
+        total_temp: float = 0
+        ntemps: int = 0
+        avg: float = 0
+        try:
+            for nbr in data:
+                ntemps += 1
+                total_temp += nbr
+            avg = total_temp / ntemps
+        except Exception:
+            print("ERROR: You must provide numbers in list")
+            return None
+        parsed: str = f"stream summary: {ntemps} readings, avg: {avg}°C"
+        for stage in self.stages:
+            result: Any = stage.process(parsed)
+            if isinstance(result, Dict):
+                try:
+                    if not result["valid"]:
+                        print("ERROR: Invalid processing...")
+                        return None
+                except Exception:
+                    parsed = f"{result['metadata']} {parsed}"
+            else:
+                parsed = result
+        return parsed
+
+
 if __name__ == "__main__":
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===")
 
     print("\nInitializing Nexus Manager...")
-    test: CSVAdapter = CSVAdapter(100) 
-    result: str = test.process("\n\n\n\n")
+    test: StreamAdapter = StreamAdapter(100) 
+    result: str = test.process([])
     print(result)
