@@ -121,11 +121,17 @@ class CSVAdapter(ProcessingPipeline):
         if not isinstance(data, str):
             print("ERROR: You must pass a valid CSV format")
             return None
-        csv: List[str] = data.split("\n")
         actions: int = 0
-        for row in csv:
-            if row != "":
-                actions += 1
+        size: int = 0
+        for chr in data:
+            if chr == '\n':
+                if size > 0:
+                    actions += 1
+                size = 0
+            else:
+                size += 1
+        if size > 0:
+            actions += 1
         parsed: str = f"user activity logged: {actions} actions"
         return super().process(parsed)
 
@@ -197,7 +203,7 @@ class NexusManager:
             lst: List[ProcessingPipeline] = self.__pipelines
         else:
             idx: int = 0
-            for value in self.pipelines:
+            for value in self.__pipelines:
                 if idx in indexes:
                     lst.append(value)
                 idx += 1
@@ -256,19 +262,19 @@ if __name__ == "__main__":
     print("\nProcessing JSON data through pipeline...")
     print(f"Input: {input}")
     print("Transform: Enriched with metadata and validation")
-    nexus.process_data(input)
+    nexus.process_data(input, [0])
 
     input: str = "user,action,timestamp"
     print("\nProcessing CSV data through same pipeline...")
     print(f"Input: {input}")
     print("Transform: Parsed and structured data")
-    nexus.process_data(input)
+    nexus.process_data(input, [1])
 
     input: List[int] = [24.1, 20, 0, 29.0, -1]
     print("\nProcessing Stream data through same pipeline...")
     print("Input: Real-time sensor stream")
     print("Transform: Aggregated and filtered")
-    nexus.process_data(input)
+    nexus.process_data(input, [2])
 
     print("\n=== Pipeline Chaining Demo ===")
     print("Pipeline A -> Pipeline B -> Pipeline C")
