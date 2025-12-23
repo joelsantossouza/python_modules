@@ -50,6 +50,21 @@ class ProcessingPipeline(ABC):
         else:
             print("ERROR: Invalid type of stage")
 
+    def process(self, data: Any) -> Any:
+        for stage in self.stages:
+            result: Any = stage.process(data)
+            if isinstance(result, Dict):
+                try:
+                    if not result["valid"]:
+                        print("ERROR: Invalid processing...")
+                        return None
+                except Exception:
+                    data = f"{result['metadata']} {data}"
+            else:
+                data = result
+        return data
+
+
 
 class JSONAdapter(ProcessingPipeline):
     """Process specific input of type JSON"""
@@ -67,7 +82,7 @@ class JSONAdapter(ProcessingPipeline):
         sensor: str = "unknown"
         feedback: str = ""
         try:
-            if not isinstance(data["sensor"], str) or not isinstance(data["value"], int) or not isinstance(data["unit"], str):
+            if not isinstance(data["sensor"], str) or not isinstance(data["value"], (int, float)) or not isinstance(data["unit"], str):
                 raise Exception
             if data["sensor"] == "temp":
                 sensor: str = "temperature"
@@ -82,18 +97,7 @@ class JSONAdapter(ProcessingPipeline):
             print("ERROR: You must provide a sensor type, its value and the measure unit")
             return None
         parsed: str = f"{sensor} reading: {data['value']}{data['unit']} {feedback}"
-        for stage in self.stages:
-            result: Any = stage.process(parsed)
-            if isinstance(result, Dict):
-                try:
-                    if not result["valid"]:
-                        print("ERROR: Invalid processing...")
-                        return None
-                except Exception:
-                    parsed = f"{result['metadata']} {parsed}"
-            else:
-                parsed = result
-        return parsed
+        return super().process(parsed)
 
 
 class CSVAdapter(ProcessingPipeline):
@@ -115,18 +119,7 @@ class CSVAdapter(ProcessingPipeline):
             if row != "":
                 actions += 1
         parsed: str = f"user activity logged: {actions} actions"
-        for stage in self.stages:
-            result: Any = stage.process(parsed)
-            if isinstance(result, Dict):
-                try:
-                    if not result["valid"]:
-                        print("ERROR: Invalid processing...")
-                        return None
-                except Exception:
-                    parsed = f"{result['metadata']} {parsed}"
-            else:
-                parsed = result
-        return parsed
+        return super().process(parsed)
 
 
 class StreamAdapter(ProcessingPipeline):
@@ -154,24 +147,73 @@ class StreamAdapter(ProcessingPipeline):
             print("ERROR: You must provide numbers in list")
             return None
         parsed: str = f"stream summary: {ntemps} readings, avg: {avg}°C"
-        for stage in self.stages:
-            result: Any = stage.process(parsed)
-            if isinstance(result, Dict):
-                try:
-                    if not result["valid"]:
-                        print("ERROR: Invalid processing...")
-                        return None
-                except Exception:
-                    parsed = f"{result['metadata']} {parsed}"
-            else:
-                parsed = result
-        return parsed
+        return super().process(parsed)
+
+
+class NexusManager:
+    """Orchestral class that holds all types of pipelines"""
+
+    pipelines: List[ProcessingPipeline] = []
+    size: int = 0
+
+    def __init__(self, capacity: int) -> None:
+        if isinstance(capacity, int) and capacity >= 0:
+            self.capacity = capacity
+        else:
+            print("ERROR: NexusManager capacity must be unsigned integer")
+
+    def add_stages(self, stages: List[ProcessingStage]) -> None:
+        if not isinstance(stages, List):
+            print("ERROR: Invalid type of stages")
+            return
+        for stage in stages:
+            for pipeline in self.pipelines:
+                pipeline.add_stage(stage)
+
+    def add_pipeline(self, pipeline: ProcessingPipeline) -> None:
+        if self.size >= self.capacity:
+            print("ERROR: Manager cannot hold more pipelines")
+            return
+        if isinstance(pipeline, (JSONAdapter, CSVAdapter, StreamAdapter)):
+            self.pipelines.append(pipeline)
+            self.size += 1
+        else:
+            print("ERROR: Invalid type of pipeline")
+
+    def process_data(self, data: Any, indexes: Optional[List[int]] = None) -> None:
+        lst: List[ProcessingPipeline] = []
+        if indexes == None:
+            lst: List[ProcessingPipeline] = self.pipelines
+        else:
+            idx: int = 0
+            for value in self.pipelines:
+                if idx in indexes:
+                    lst.append(value)
+                idx += 1
+        for value in lst:
+            result: str = value.process(data)
+            if result != None:
+                print(result)
 
 
 if __name__ == "__main__":
     print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===")
 
     print("\nInitializing Nexus Manager...")
-    test: StreamAdapter = StreamAdapter(100) 
-    result: str = test.process([])
-    print(result)
+    nexus: NexusManager = NexusManager(1)
+    print("Pipeline capacity: 1000 streams/second")
+
+    nexus.add_stages([InputStage(), TransformStage(), OutputStage()])
+    print("\nCreating Data Processing Pipeline...")
+    print("Stage 1: Input validation and parsing")
+    print("Stage 2: Data transformation and enrichment")
+    print("Stage 3: Output formatting and delivery")
+
+    print("\n=== Multi-Format Data Processing ===")
+
+    nexus.add_pipeline(JSONAdapter(0))
+    input: Dict = {"sensor":"temp", "value":23.5, "unit":"°C"}
+    print("\nProcessing JSON data through pipeline...")
+    print(f"Input: {input}")
+    print("Transform: Enriched with metadata and validation")
+    nexus.process_data(input)
