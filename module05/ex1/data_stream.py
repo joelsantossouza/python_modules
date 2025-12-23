@@ -14,22 +14,7 @@ class DataStream(ABC):
 
     def filter_data(self, data_batch: List[Any],
                     criteria: Optional[str] = None) -> List[Any]:
-        if criteria != "critical":
-            return data_batch
-        try:
-            ignore: List[Any] = [
-                data for data in data_batch
-                if (data[:5] == "temp:" and 2 <= float(data[5:]) < 25) or
-                (data[:9] == "humidity:" and 20 <= int(data[9:]) < 50) or
-                (data[:9] == "pressure:" and 300 <= int(data[9:]) < 1000) or
-                (data[:4] == "buy:" and 0 <= int(data[4:]) < 125) or
-                (data[:5] == "sell:" and 0 <= int(data[5:]) < 125) or
-                (":" not in data)
-            ]
-            return [data for data in data_batch if data not in ignore]
-        except Exception:
-            print("ERROR: Invalid data")
-            return data_batch
+        return data_batch
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {
@@ -78,6 +63,22 @@ class SensorStream(DataStream):
         return f"Sensor analysis: {readings} readings processed, " \
             f"avg temp: {avg}°C"
 
+    def filter_data(self, data_batch: List[Any],
+                    criteria: Optional[str] = None) -> List[Any]:
+        if criteria != "critical":
+            return data_batch
+        try:
+            ignore: List[Any] = [
+                data for data in data_batch
+                if (data[:5] == "temp:" and 2 <= float(data[5:]) < 25) or
+                (data[:9] == "humidity:" and 20 <= int(data[9:]) < 50) or
+                (data[:9] == "pressure:" and 300 <= int(data[9:]) < 1000)
+            ]
+            return ignore
+        except Exception:
+            print("ERROR: Invalid data")
+            return data_batch
+
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         try:
             avg: float = self.total_temp / self.ntemps
@@ -119,6 +120,21 @@ class TransactionStream(DataStream):
         return f"Transaction analysis: {operations} operations, " \
             f"net flow: {profit:+d} units"
 
+    def filter_data(self, data_batch: List[Any],
+                    criteria: Optional[str] = None) -> List[Any]:
+        if criteria != "critical":
+            return data_batch
+        try:
+            ignore: List[Any] = [
+                data for data in data_batch
+                if (data[:4] == "buy:" and 0 <= int(data[4:]) < 125) or
+                (data[:5] == "sell:" and 0 <= int(data[5:]) < 125)
+            ]
+            return ignore
+        except Exception:
+            print("ERROR: Invalid data")
+            return data_batch
+
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {
             "id": {self.id},
@@ -154,6 +170,20 @@ class EventStream(DataStream):
         return f"Event analysis: {events} events, " \
             f"{errors} error detected"
 
+    def filter_data(self, data_batch: List[Any],
+                    criteria: Optional[str] = None) -> List[Any]:
+        if criteria != "critical":
+            return data_batch
+        try:
+            ignore: List[Any] = [
+                data for data in data_batch
+                if (":" not in data)
+            ]
+            return ignore
+        except Exception:
+            print("ERROR: Invalid data")
+            return data_batch
+
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {
             "id": {self.id},
@@ -166,24 +196,24 @@ class EventStream(DataStream):
 class StreamProcessor:
     """Process all type of stream (Sensor, Transaction and Event)"""
 
+    streams: List[DataStream] = [
+        SensorStream("Stream_001"),
+        TransactionStream("Steam_001"),
+        EventStream("Stream_001")
+    ]
+
     def process_batch(self, data_batch: List[Any]) -> str:
-        sensor: SensorStream = SensorStream("SENSOR_002")
-        sensor_str: str = sensor.process_batch(data_batch)
-
-        transaction: TransactionStream = TransactionStream("TRANS_002")
-        transaction_str: str = transaction.process_batch(data_batch)
-
-        events: EventStream = EventStream("EVENT_002")
-        events_str: str = events.process_batch(data_batch)
-
-        return f" - {sensor_str}\n" \
-            f" - {transaction_str}\n" \
-            f" - {events_str}\n"
+        result: str = ""
+        for stream in self.streams:
+            result += f" - {stream.process_batch(data_batch)}\n"
+        return result
 
     def filter_data(self, data_batch: List[Any],
                     criteria: Optional[str] = None) -> List[Any]:
-        stream: SensorStream = SensorStream(0)
-        return stream.filter_data(data_batch, criteria)
+        ignore: List[str] = []
+        for stream in self.streams:
+            ignore += stream.filter_data(data_batch, criteria)
+        return [data for data in data_batch if data not in ignore]
 
 
 if __name__ == "__main__":
