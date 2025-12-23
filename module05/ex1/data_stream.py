@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, List, Dict, Union, Optional
 
+
 class DataStream(ABC):
     """A blueprint of how should data streams classes be organized"""
 
@@ -23,7 +24,7 @@ class DataStream(ABC):
                 (data[:9] == "pressure:" and 300 <= int(data[9:]) < 1000) or
                 (data[:4] == "buy:" and 0 <= int(data[4:]) < 125) or
                 (data[:5] == "sell:" and 0 <= int(data[5:]) < 125) or
-                (not ":" in data)
+                (":" not in data)
             ]
             return [data for data in data_batch if data not in ignore]
         except Exception:
@@ -45,6 +46,7 @@ class SensorStream(DataStream):
     readings: int = 0
     total_temp: float = 0
     ntemps: int = 0
+
     def process_batch(self, data_batch: List[Any]) -> str:
         readings: int = 0
         total_temp: float = 0
@@ -74,7 +76,7 @@ class SensorStream(DataStream):
         self.total_temp += total_temp
         self.ntemps += ntemps
         return f"Sensor analysis: {readings} readings processed, " \
-                f"avg temp: {avg}°C"
+            f"avg temp: {avg}°C"
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         try:
@@ -94,6 +96,7 @@ class TransactionStream(DataStream):
 
     operations: int = 0
     profit: int = 0
+
     def process_batch(self, data_batch: List[Any]) -> str:
         operations: int = 0
         profit: int = 0
@@ -114,7 +117,7 @@ class TransactionStream(DataStream):
         self.operations += operations
         self.profit += profit
         return f"Transaction analysis: {operations} operations, " \
-                f"net flow: {profit:+d} units"
+            f"net flow: {profit:+d} units"
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {
@@ -130,6 +133,7 @@ class EventStream(DataStream):
 
     events: int = 0
     errors: int = 0
+
     def process_batch(self, data_batch: List[Any]) -> str:
         events: int = 0
         errors: int = 0
@@ -148,7 +152,7 @@ class EventStream(DataStream):
         self.events += events
         self.errors += errors
         return f"Event analysis: {events} events, " \
-                f"{errors} error detected"
+            f"{errors} error detected"
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
         return {
@@ -173,8 +177,8 @@ class StreamProcessor(DataStream):
         events_str: str = events.process_batch(data_batch)
 
         return f" - {sensor_str}\n" \
-                f" - {transaction_str}\n" \
-                f" - {events_str}\n"
+            f" - {transaction_str}\n" \
+            f" - {events_str}\n"
 
 
 if __name__ == "__main__":

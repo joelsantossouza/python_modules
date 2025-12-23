@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, Dict, Union, Optional
+from typing import Any, List
 
 
 class DataProcessor(ABC):
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
     print("\nInitializing Numeric Processor...")
-    nbrs: list[int] = [1, 2, 3, 4, 5]
+    nbrs: List[int] = [1, 2, 3, 4, 5]
     process_nbr: NumericProcessor = NumericProcessor()
     print(f"Processing data: {nbrs}")
     result: str = process_nbr.process(nbrs)
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     print("\n=== Polymorphic Processing Demo ===")
     print("Processing multiple data types through same interface...")
-    inputs: list[list[Any]] = [
+    inputs: List[List[Any]] = [
         [NumericProcessor(), [2, 2, 2]],
         [TextProcessor(), "Hello World!"],
         [LogProcessor(), "INFO: System ready"],
