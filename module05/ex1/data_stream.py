@@ -163,7 +163,7 @@ class EventStream(DataStream):
         }
 
 
-class StreamProcessor(DataStream):
+class StreamProcessor:
     """Process all type of stream (Sensor, Transaction and Event)"""
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -179,6 +179,11 @@ class StreamProcessor(DataStream):
         return f" - {sensor_str}\n" \
             f" - {transaction_str}\n" \
             f" - {events_str}\n"
+
+    def filter_data(self, data_batch: List[Any],
+                    criteria: Optional[str] = None) -> List[Any]:
+        stream: SensorStream = SensorStream(0)
+        return stream.filter_data(data_batch, criteria)
 
 
 if __name__ == "__main__":
@@ -212,7 +217,7 @@ if __name__ == "__main__":
 
     print("\n=== Polymorphic Stream Processing ===")
     print("Processing mixed stream types through unified interface...")
-    stream: StreamProcessor = StreamProcessor("STREAM_001")
+    stream: StreamProcessor = StreamProcessor()
     input: List[str] = [
         "buy:500", "buy:15", "pressure:100", "error", "temp:-10",
         "login", "sell:500", "logout", "sell:10"
