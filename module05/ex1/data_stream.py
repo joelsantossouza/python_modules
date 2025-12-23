@@ -210,6 +210,8 @@ class StreamProcessor:
 
     def filter_data(self, data_batch: List[Any],
                     criteria: Optional[str] = None) -> List[Any]:
+        if criteria != "critical":
+            return data_batch
         ignore: List[str] = []
         for stream in self.streams:
             ignore += stream.filter_data(data_batch, criteria)
