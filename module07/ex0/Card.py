@@ -24,7 +24,7 @@ class Card(ABC):
         ...
 
     def get_card_info(self) -> dict:
-        return self.info
+        return self._info
 
     def is_playable(self, available_mana: int) -> bool:
-        return
+        return available_mana >= self.cost

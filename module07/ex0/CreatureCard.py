@@ -21,5 +21,12 @@ class CreatureCard(Card):
         return True
 
     def play(self, game_state: dict) -> dict:
+        return {
+            "card_played": self.name,
+            "mana_used": self.cost,
+            "effect": "Creature summoned to battlefield"
+        }
 
     def attack_target(self, target) -> dict:
+        if not isinstance(target, Card):
+            return None
