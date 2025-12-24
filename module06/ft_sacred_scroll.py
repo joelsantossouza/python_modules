@@ -28,7 +28,6 @@ if __name__ == "__main__":
         air: str = e
     print(f"alchemy.elements.create_air(): {air}")
 
-
     print("\nTesting package-level access (controlled by __init__.py):")
     try:
         fire: str = alchemy.create_fire()
