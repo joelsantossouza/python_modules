@@ -14,7 +14,7 @@ class Card(ABC):
     def validate(name: str, cost: int, rarity: str) -> bool:
         if cost < 0:
             return False
-        rarities: list[str] = ["Legendary"]:
+        rarities: list[str] = ["Legendary"]
         if rarity not in rarities:
             return False
         return True
@@ -27,4 +27,4 @@ class Card(ABC):
         return self._info
 
     def is_playable(self, available_mana: int) -> bool:
-        return available_mana >= self.cost
+        return available_mana >= self._info["cost"]
