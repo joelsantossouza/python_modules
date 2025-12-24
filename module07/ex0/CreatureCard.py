@@ -1,13 +1,17 @@
 from ex0.Card import Card
 from sys import stderr
 
+
 class CreatureCard(Card):
     """Structure of creature's type Card"""
 
-    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int) -> None:
+    def __init__(self, name: str, cost: int, rarity: str,
+                 attack: int, health: int) -> None:
         if not self.validate(name, cost, rarity, attack, health):
             try:
-                raise Exception(f"CreatureCardError: Invalid input to create '{name}'")
+                raise Exception(
+                    f"CreatureCardError: Invalid input to create '{name}'"
+                )
             except Exception as e:
                 print(e, file=stderr)
                 exit(1)
@@ -18,7 +22,8 @@ class CreatureCard(Card):
             "health": health
         }
 
-    def validate(self, name: str, cost: int, rarity: str, attack: int, health: int) -> bool:
+    def validate(self, name: str, cost: int, rarity: str,
+                 attack: int, health: int) -> bool:
         if not super().validate(name, cost, rarity):
             return False
         if attack <= 0 or health <= 0:
