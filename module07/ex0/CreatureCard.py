@@ -8,13 +8,11 @@ class CreatureCard(Card):
     def __init__(self, name: str, cost: int, rarity: str,
                  attack: int, health: int) -> None:
         if not self.validate(name, cost, rarity, attack, health):
-            try:
-                raise Exception(
-                    f"CreatureCardError: Invalid input to create '{name}'"
-                )
-            except Exception as e:
-                print(e, file=stderr)
-                exit(1)
+            print(
+                f"CreatureCardError: Invalid input to create '{name}'",
+                file=stderr
+            )
+            exit(1)
         super().__init__(name, cost, rarity)
         self._info |= {
             "type": "Creature",
