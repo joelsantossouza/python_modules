@@ -24,6 +24,8 @@ class CreatureCard(Card):
                  attack: int, health: int) -> bool:
         if not super().validate(name, cost, rarity):
             return False
+        if not isinstance(attack, int) or not isinstance(health, int):
+            return False
         if attack <= 0 or health <= 0:
             return False
         return True

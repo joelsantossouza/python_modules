@@ -13,7 +13,9 @@ class Card(ABC):
 
     @staticmethod
     def validate(name: str, cost: int, rarity: str) -> bool:
-        if cost < 0:
+        if not isinstance(name, str):
+            return False
+        if not isinstance(cost, int) or cost < 0:
             return False
         rarities: list[str] = ["Legendary"]
         if rarity not in rarities:

@@ -1,22 +1,18 @@
+from ex0.Card import Card
+from sys import stderr
+
+
 class SpellCard(Card):
     """Cards specialized in instant magic effects"""
 
-    def __init__(self, name: str, cost: int, rarity: str, effect_type: str) -> None:
+    def __init__(self, name: str, cost: int, rarity: str,
+                 effect_type: str) -> None:
         if not self.validate(name, cost, rarity, effect_type):
             print(
                 f"SpellCardError: Invalid input to create '{name}'",
                 file=stderr
             )
             exit(1)
-        super().__init__(name, cost, rarity)
-        self._info |= {
-            "type": "Spell",
-            "effect": effect_type,
-        }
-
-    def validate(self, name: str, cost: int, rarity: str, effect_type: str) -> bool:
-        if not super().validate(name, cost, rarity):
-            return False
         if effect_type == "damage":
             effect_type = "Deal 3 damage to target"
         elif effect_type == "heal":
@@ -25,10 +21,22 @@ class SpellCard(Card):
             effect_type = "Grant +2 attack points"
         elif effect_type == "unbuff":
             effect_type = "Reduce target attack by 2"
-        else:
+        super().__init__(name, cost, rarity)
+        self._info |= {
+            "type": "Spell",
+            "effect": effect_type,
+        }
+
+    def validate(self, name: str, cost: int, rarity: str,
+                 effect_type: str) -> bool:
+        if not super().validate(name, cost, rarity):
+            return False
+        effects_type: list[str] = [
+            "damage", "heal", "buff", "unbuff"
+        ]
+        if effect_type not in effects_type:
             return False
         return True
-
 
     def play(self, game_state: dict) -> dict:
         return {
@@ -38,4 +46,9 @@ class SpellCard(Card):
         }
 
     def resolve_effect(self, targets: list) -> dict:
-        return
+        return {
+            "spell": self._info["name"],
+            "effect": self._info["effect"],
+            "targets": targets,
+            "resolved": True
+        }
