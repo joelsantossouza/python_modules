@@ -3,6 +3,7 @@ from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 from ex1.ArtifactCard import ArtifactCard
 from ex3.CardFactory import CardFactory
+from random import choice
 
 
 class FantasyCardFactory(CardFactory):
@@ -36,7 +37,20 @@ class FantasyCardFactory(CardFactory):
         return None
 
     def create_themed_deck(self, size: int) -> dict:
-        return
+        deck: list[str] = []
+        types: dict = self.get_supported_types()
+        keys: list[str] = list(types.keys())
+        for _ in range(size):
+            card_type: str = choice(keys)
+            card_name: str = choice(types[card_type])
+            deck.append(card_name)
+        return {
+            "deck": deck
+        }
 
     def get_supported_types(self) -> dict:
-        return
+        return {
+            "creatures": ["Fire Dragon", "Goblin Warrior"],
+            "spells": ["Fireball", "Lightning Bolt"],
+            "artifacts": ["Mana Ring"],
+        }
