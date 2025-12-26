@@ -13,8 +13,10 @@ class SpellCard(Card):
                 file=stderr
             )
             exit(1)
+        attack: int = 0
         if effect_type == "damage":
             effect_type = "Deal 3 damage to target"
+            attack = 3
         elif effect_type == "heal":
             effect_type = "Restore 3 health points"
         elif effect_type == "buff":
@@ -25,6 +27,7 @@ class SpellCard(Card):
         self._info |= {
             "type": "Spell",
             "effect": effect_type,
+            "attack": attack
         }
 
     def validate(self, name: str, cost: int, rarity: str,

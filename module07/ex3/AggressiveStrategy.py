@@ -13,7 +13,7 @@ class AggressiveStrategy(GameStrategy):
     def execute_turn(self, hand: list, battlefield: list) -> dict:
         if not isinstance(hand, list):
             return None
-        hand = list[Card] = [
+        hand: list[Card] = [
             card for card in hand if isinstance(card, Card)
         ]
         sorted(hand, key=lambda card: card._info["cost"])

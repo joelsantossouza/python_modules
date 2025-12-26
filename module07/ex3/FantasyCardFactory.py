@@ -36,14 +36,24 @@ class FantasyCardFactory(CardFactory):
             )
         return None
 
+    def get_factory_name(self) -> str:
+        return "FantasyCardFactory"
+
     def create_themed_deck(self, size: int) -> dict:
-        deck: list[str] = []
+        deck: list[Card] = []
         types: dict = self.get_supported_types()
         keys: list[str] = list(types.keys())
+        card: Card = None
         for _ in range(size):
             card_type: str = choice(keys)
             card_name: str = choice(types[card_type])
-            deck.append(card_name)
+            if card_type == "creatures":
+                card = self.create_creature(card_name)
+            elif card_type == "spells":
+                card = self.create_spell(card_name)
+            else:
+                card = self.create_artifact(card_name)
+            deck.append(card)
         return {
             "deck": deck
         }

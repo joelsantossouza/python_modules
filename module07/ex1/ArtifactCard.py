@@ -17,7 +17,8 @@ class ArtifactCard(Card):
         self._info |= {
             "type": "Artifact",
             "durability": durability,
-            "effect": effect
+            "effect": effect,
+            "attack": 0
         }
 
     def validate(self, name: str, cost: int, rarity: str,
