@@ -24,7 +24,7 @@ if __name__ == "__main__":
     card = deck.draw_card()
     while (card):
         info: dict = card.get_card_info()
-        print(f"\nDrew: {info["name"]} ({info["type"]})")
+        print(f"\nDrew: {info['name']} ({info['type']})")
         print(f"Play result: {card.play(None)}")
         card = deck.draw_card()
 

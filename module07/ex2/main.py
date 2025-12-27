@@ -32,7 +32,7 @@ if __name__ == "__main__":
     print("\nMagic phase:")
     targets: list[str] = ["Enemy1", "Enemy2"]
     print(f"Mana before: {arcane_warrior.get_magic_stats()}")
-    print(f"Spell cast: {arcane_warrior.cast_spell("Fireball", targets)}")
+    print(f"Spell cast: {arcane_warrior.cast_spell('Fireball', targets)}")
     print(f"Mana after: {arcane_warrior.get_magic_stats()}")
     print(f"Mana channel: {arcane_warrior.channel_mana(1000)}")
 
