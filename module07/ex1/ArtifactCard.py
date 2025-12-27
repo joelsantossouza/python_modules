@@ -14,7 +14,7 @@ class ArtifactCard(Card):
             )
             exit(1)
         super().__init__(name, cost, rarity)
-        self.__active = True
+        self.__active: bool = True
         self._info |= {
             "type": "Artifact",
             "durability": durability,

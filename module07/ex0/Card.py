@@ -5,7 +5,7 @@ class Card(ABC):
     """Base structure of a Card"""
 
     def __init__(self, name: str, cost: int, rarity: str) -> None:
-        self._info = {
+        self._info: dict = {
             "name": name,
             "cost": cost,
             "rarity": rarity,

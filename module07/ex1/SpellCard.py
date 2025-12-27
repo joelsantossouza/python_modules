@@ -24,7 +24,7 @@ class SpellCard(Card):
         elif effect_type == "unbuff":
             effect_type = "Reduce target attack by 2"
         super().__init__(name, cost, rarity)
-        self.__used = False
+        self.__used: bool = False
         self._info |= {
             "type": "Spell",
             "effect": effect_type,
