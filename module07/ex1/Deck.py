@@ -5,7 +5,8 @@ from ex0.Card import Card
 class Deck:
     """Holds every Cards types polymorphically"""
 
-    __cards: list[Card] = []
+    def __init__(self) -> None:
+        self.__cards: list[Card] = []
 
     def add_card(self, card: Card) -> None:
         if isinstance(card, Card):

@@ -6,16 +6,17 @@ from ex3.GameStrategy import GameStrategy
 class GameEngine:
     """Game orchestrator"""
 
-    factory: CardFactory = None
-    strategy: GameStrategy = None
-    turns_simulated: int = 0
-    strategy_used: str = None
-    factory_used: str = None
-    total_damage: int = 0
-    cards_created: int = 0
-    hand: list[Card] = []
-    battlefield: list[Card] = []
-    mana: int = 6
+    def __init__(self) -> None:
+        self.factory: CardFactory = None
+        self.strategy: GameStrategy = None
+        self.turns_simulated: int = 0
+        self.strategy_used: str = None
+        self.factory_used: str = None
+        self.total_damage: int = 0
+        self.cards_created: int = 0
+        self.hand: list[Card] = []
+        self.battlefield: list[Card] = []
+        self.mana: int = 6
 
     def configure_engine(self, factory: CardFactory,
                          strategy: GameStrategy) -> None:

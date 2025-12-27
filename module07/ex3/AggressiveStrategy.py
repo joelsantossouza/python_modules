@@ -30,7 +30,8 @@ class AggressiveStrategy(GameStrategy):
         if not isinstance(available_targets, list) or not available_targets:
             return None
         targets: list[Card] = [
-            target for target in available_targets if isinstance(target, (CreatureCard, EliteCard))
+            target for target in available_targets
+            if isinstance(target, (CreatureCard, EliteCard))
         ]
         sorted(targets, key=lambda card: card._info["health"])
         return targets
