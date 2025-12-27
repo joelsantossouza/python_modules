@@ -16,7 +16,8 @@ class TournamentPlatform:
         return card._info["id"]
 
     def create_match(self, card1_id: str, card2_id: str) -> dict:
-        if not isinstance(card1_id, str) or not isinstance(card2_id, str):
+        if not isinstance(card1_id, str) or not isinstance(card2_id, str) or \
+                card1_id == card2_id:
             return None
         self.matches_played += 1
         players: list[TournamentCard] = [card1_id, card2_id]
