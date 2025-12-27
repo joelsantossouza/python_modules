@@ -16,10 +16,12 @@ class AggressiveStrategy(GameStrategy):
         hand: list[Card] = [
             card for card in hand if isinstance(card, Card)
         ]
-        sorted(hand, key=lambda card: card._info["cost"])
+        sort_hand: list[Card] = sorted(
+            hand, key=lambda card: card._info["cost"]
+        )
         best_targets: list[Card] = self.prioritize_targets(battlefield)
         return {
-            "best_cards": hand,
+            "best_cards": sort_hand,
             "best_targets": best_targets
         }
 
@@ -33,5 +35,4 @@ class AggressiveStrategy(GameStrategy):
             target for target in available_targets
             if isinstance(target, (CreatureCard, EliteCard))
         ]
-        sorted(targets, key=lambda card: card._info["health"])
-        return targets
+        return sorted(targets, key=lambda card: card._info["health"])
