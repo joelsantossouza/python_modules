@@ -14,6 +14,7 @@ class ArtifactCard(Card):
             )
             exit(1)
         super().__init__(name, cost, rarity)
+        self.__active = True
         self._info |= {
             "type": "Artifact",
             "durability": durability,
@@ -32,13 +33,19 @@ class ArtifactCard(Card):
         return True
 
     def play(self, game_state: dict) -> dict:
+        if not self.__active:
+            return None
         return {
             "card_played": self._info["name"],
             "mana_used": self._info["cost"],
             "effect": self._info["effect"]
         }
 
+    def destroy(self) -> None:
+        self.__active = False
+
     def activate_ability(self) -> dict:
+        self.__active = True
         return {
             "artifact": self._info["name"],
             "effect": self._info["effect"],
