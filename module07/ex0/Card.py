@@ -17,7 +17,7 @@ class Card(ABC):
             return False
         if not isinstance(cost, int) or cost < 0:
             return False
-        rarities: list[str] = ["Legendary"]
+        rarities: list[str] = ["Legendary", "Common", "Uncommon", "Rare"]
         if rarity not in rarities:
             return False
         return True
