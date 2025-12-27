@@ -24,6 +24,7 @@ class SpellCard(Card):
         elif effect_type == "unbuff":
             effect_type = "Reduce target attack by 2"
         super().__init__(name, cost, rarity)
+        self.__used = False
         self._info |= {
             "type": "Spell",
             "effect": effect_type,
@@ -42,6 +43,9 @@ class SpellCard(Card):
         return True
 
     def play(self, game_state: dict) -> dict:
+        if self.__used:
+            return None
+        self.__used = True
         return {
             "card_played": self._info["name"],
             "mana_used": self._info["cost"],
