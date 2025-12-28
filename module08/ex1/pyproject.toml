@@ -1,8 +1,12 @@
-[project]
+[tool.poetry]
 name = "Loding Programs"
 version = "1.0"
-dependencies = [
-	"numpy<2", "pandas>=2.0.3",
-	"requests==2.31.0", "matplotlib==3.7.2"
-]
+description = "Project to learn about virtual environments in python"
+authors = ["joesanto"]
 
+[tool.poetry.dependencies]
+python = ">=3.10"
+numpy = "<2"
+pandas = ">=2.0.3"
+requests = "==2.31.0"
+matplotlib = "==3.7.2"
