@@ -19,6 +19,7 @@ if __name__ == "__main__":
             f"[OK] requests {requests.__version__} - Network access ready"
         )
         matplot = importlib.import_module("matplotlib")
+        pyplot = importlib.import_module("matplotlib.pyplot")
         print(
             f"[OK] matplotlib {matplot.__version__} - Visualization ready"
         )
@@ -35,9 +36,19 @@ if __name__ == "__main__":
     print(data_frame)
 
     print("\nDoing a request...")
-    response: Response = requests.get(URL_42)
-    print(f"Response Status: {response.status_code}")
-    if response.status_code == 200:
-        print(response.text)
+    try:
+        response: Response = requests.get(URL_42)
+        print(f"Response Status: {response.status_code}")
+        if response.status_code == 200:
+            print(response.text)
+    except Exception as e:
+        print(f"ERROR - {e}")
 
-    print("\n")
+    print("\nGenerating visualization...")
+    space: list[int] = [0, 1, 2, 3, 4, 5]
+    time: list[int] = [0, 1, 2, 3, 4, 5]
+    pyplot.plot(time, space)
+    pyplot.title("Time-Space")
+    pyplot.xlabel("Time")
+    pyplot.ylabel("Space")
+    pyplot.savefig("matrix_analysis.png")
