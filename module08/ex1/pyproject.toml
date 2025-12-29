@@ -3,6 +3,7 @@ name = "Loding Programs"
 version = "1.0"
 description = "Project to learn about virtual environments in python"
 authors = ["joesanto"]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.10"
