@@ -1,7 +1,11 @@
 from os import getenv, getcwd
 from os.path import exists
-from dotenv import load_dotenv
 from sys import stderr
+try:
+    from dotenv import load_dotenv
+except ModuleNotFoundError as e:
+    print(f"{e}. Install with pip install python3-dotenv", file=stderr)
+    exit(1)
 
 
 if __name__ == "__main__":
