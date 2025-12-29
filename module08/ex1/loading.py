@@ -1,4 +1,6 @@
 import importlib
+import sys
+from sys import base_prefix, prefix
 
 URL_42 = "https://www.42porto.com/pt/"
 
@@ -52,3 +54,10 @@ if __name__ == "__main__":
     pyplot.xlabel("Time")
     pyplot.ylabel("Space")
     pyplot.savefig("matrix_analysis.png")
+
+    # Check if it is being run in a virual environment
+    if hasattr(sys, 'real_prefix') or \
+            (hasattr(sys, 'base_prefix') and base_prefix != prefix):
+        print("\nRunning in a virtual environment / Poetry")
+    else:
+        print("\nRunning in a global environment")
