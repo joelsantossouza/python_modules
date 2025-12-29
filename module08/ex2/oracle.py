@@ -4,7 +4,7 @@ from sys import stderr
 try:
     from dotenv import load_dotenv
 except ModuleNotFoundError as e:
-    print(f"{e}. Install with pip install python3-dotenv", file=stderr)
+    print(f"{e}. Install with pip install python-dotenv", file=stderr)
     exit(1)
 
 
