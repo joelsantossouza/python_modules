@@ -15,23 +15,28 @@ if __name__ == "__main__":
     if not mode:
         print("No matrix mode provided", file=stderr)
         exit(1)
+    vars: list[str] = [
+        getenv(var) for var in [
+            "DATABASE_URL", "API_KEY", "LOG_LEVEL", "ZION_ENDPOINT"
+        ]
+    ]
     if mode == "development":
-        database: str = getenv('DATABASE_URL')
-        api_access: str = getenv('API_KEY')
-        log_level: str = getenv('LOG_LEVEL')
-        zion_network: str = getenv('ZION_ENDPOINT')
+        for i, var in enumerate(vars):
+            vars[i] = var if var else "Missing configuration..."
     else:
-        database: str = "Database is connected"
-        api_access: str = "Authenticated"
-        log_level: str = "INFO"
-        zion_network: str = "Online"
+        info: list[str] = [
+            "Database is connected", "Authenticated",
+            "INFO", "Online"
+        ]
+        for i, var in enumerate(vars):
+            vars[i] = info[i] if var else "Missing configuration..."
 
     print("\nConfiguration loaded:")
     print(f"Mode: {mode}")
-    print(f"Database: {database}")
-    print(f"API Access: {api_access}")
-    print(f"Log Level: {log_level}")
-    print(f"Zion Network: {zion_network}")
+    print(f"Database: {vars[0]}")
+    print(f"API Access: {vars[1]}")
+    print(f"Log Level: {vars[2]}")
+    print(f"Zion Network: {vars[3]}")
 
     print("\nEnvironment security check:")
     print("[OK] No hardcoded secrets detected")
