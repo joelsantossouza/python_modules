@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     load_dotenv()
     mode: str = getenv('MATRIX_MODE')
-    if not mode or mode != "development" or mode != "production":
+    if not mode or (mode != "development" and mode != "production"):
         print(
             "\nNo matrix mode provided (development or production)",
             file=stderr
