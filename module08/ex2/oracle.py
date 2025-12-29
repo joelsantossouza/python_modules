@@ -16,7 +16,9 @@ if __name__ == "__main__":
         print(f"WARNING - Missing .env file in {getcwd()}", file=stderr)
         has_env_file = False
 
+    # Import the variables from .env to the local ambient variables
     load_dotenv()
+    # Once loaded, geting its values with getenv
     mode: str = getenv('MATRIX_MODE')
     if not mode or (mode != "development" and mode != "production"):
         print(
