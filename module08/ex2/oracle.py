@@ -8,12 +8,12 @@ if __name__ == "__main__":
     print("\nORACLE STATUS: Reading the Matrix...")
 
     if not exists(".env"):
-        print(f"WARNING - Missing .env file in {getcwd()}\n", file=stderr)
+        print(f"WARNING - Missing .env file in {getcwd()}", file=stderr)
 
     load_dotenv()
     mode: str = getenv('MATRIX_MODE')
     if not mode:
-        print("No matrix mode provided", file=stderr)
+        print("\nNo matrix mode provided", file=stderr)
         exit(1)
     vars: list[str] = [
         getenv(var) for var in [
