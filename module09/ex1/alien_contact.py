@@ -43,7 +43,7 @@ class AlienContact(BaseModel):
             raise ValueError(
                 "For telepathic contacts require at least 3 witnesses"
             )
-        if self.signal_strength > 7.0 and self.message_received is None:
+        if self.signal_strength > 7.0 and not self.message_received:
             raise ValueError(
                 "Strong signals (>7.0) must include received messages"
             )
@@ -125,7 +125,7 @@ if __name__ == "__main__":
             "Message": "Hello from Zeta",
             "Is verified": False
         },
-        # ❌ Strong signal but no message received
+        # ❌ Strong signal but no message received (None)
         {
             "ID": "AC_2024_006",
             "Timestamp": "2025-12-30T17:00:00",
@@ -135,6 +135,18 @@ if __name__ == "__main__":
             "Duration": 40,
             "Witnesses": 4,
             "Message": None,
+            "Is verified": False
+        },
+        # ❌ Strong signal but no message received (Empty)
+        {
+            "ID": "AC_2024_006",
+            "Timestamp": "2025-12-30T17:00:00",
+            "Location": "Mars Base",
+            "Type": "radio",
+            "Signal": 8.5,
+            "Duration": 40,
+            "Witnesses": 4,
+            "Message": "",
             "Is verified": False
         },
         # ✅ Valid telepathic contact
