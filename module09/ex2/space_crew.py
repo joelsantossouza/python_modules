@@ -53,7 +53,7 @@ class SpaceMission(BaseModel):
             raise ValueError("Crew must have one commander or captain")
         if self.duration_days > 365 and experients < (size / 2):
             raise ValueError(
-                "For long missions (>365) 50% of crew"
+                "For long missions (>365) 50% of crew "
                 "must have 5+ years of experience"
             )
         return self
