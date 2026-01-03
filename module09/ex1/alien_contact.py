@@ -50,7 +50,8 @@ class AlienContact(BaseModel):
         return self
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Main function"""
     print("Alien Contact Log Validation")
     inputs: list[dict] = [
         # ✅ Valid geral contact
@@ -185,3 +186,7 @@ if __name__ == "__main__":
             for error in e.errors():
                 print(error['msg'], end=", ")
             print()
+
+
+if __name__ == "__main__":
+    main()

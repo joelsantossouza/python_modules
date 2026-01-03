@@ -59,7 +59,8 @@ class SpaceMission(BaseModel):
         return self
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Main function"""
     print("Space Mission Crew Validation")
     crew_valid: list[CrewMember] = [
         CrewMember(
@@ -211,3 +212,7 @@ if __name__ == "__main__":
             for error in e.errors():
                 print(error['msg'], end=", ")
             print()
+
+
+if __name__ == "__main__":
+    main()
