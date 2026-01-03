@@ -1,9 +1,18 @@
+from time import time
+from functools import wraps
+
+
 def spell_timer(func: callable) -> callable:
     """Time execution decorator"""
-    print(f"Casting {func}...")
-    original_result: any = func()
-    print(f"Spell completed in {time} seconds")
-    return original_result
+    @wraps(func)
+    def timer(*args, **kwargs) -> any:
+        """Counts the execution time of a function"""
+        print(f"Casting {func.__name__}")
+        start: float = time()
+        result: any = func(*args, **kwargs)
+        print(f"Spell completed in {(time() - start):.6f} seconds")
+        return result
+    return timer
 
 
 def power_validator(min_power: int) -> callable:
@@ -28,12 +37,15 @@ class MageGuild:
 
 @spell_timer
 def fireball() -> str:
+    """Fireball caster"""
+    for _ in range(1000000):
+        pass
     return "Fireball cast!"
 
 
 if __name__ == "__main__":
     print("\nTesting spell timer...")
-    fireball()
+    print(f"Result: {fireball()}")
 
     print("\nTesting power validator...")
     print("\nTesting retry spell...")
