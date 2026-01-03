@@ -43,7 +43,7 @@ if __name__ == "__main__":
         lambda target: f"Fireball hits {target}",
         lambda target: f"Heals {target}"
     )
-    print(f"Combined spell result: {combiner("Dragon")}")
+    print(f"Combined spell result: {combiner('Dragon')}")
 
     print("\nTesting power amplifier...")
     fireball: Callable = lambda: 10

@@ -105,4 +105,4 @@ if __name__ == "__main__":
     cast_spell: Callable = spell_dispatcher()
     print(f"Integer: {cast_spell(10)}")
     print(f"String: {cast_spell('Sharpness')}")
-    print(f"List: {cast_spell([100, "Flame", 99.9])}")
+    print(f"List: {cast_spell([100, 'Flame', 99.9])}")
