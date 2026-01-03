@@ -12,7 +12,7 @@ class SpaceStation(BaseModel):
     oxygen_level: float = Field(ge=0.0, le=100.0)
     last_maintenance: datetime
     is_operational: Optional[bool] = Field(default=True)
-    notes: Optional[str] = Field(default="", max_length=100)
+    notes: Optional[str] = Field(default="", max_length=200)
 
 
 def main() -> None:
@@ -39,7 +39,6 @@ def main() -> None:
     print("\n\nSpace Station Data Validation - [INVALIDS]")
     print("========================================")
     inputs: list[list[Any]] = [
-        ["123", "Test", 6, 85.5, 92.3, "2025-12-29", True, ""],
         [1, "Test", 6, 85.5, 92.3, "2025-12-29", True, ""],
         ["123", 1, 6, 85.5, 92.3, "2025-12-29", True, ""],
         ["123", "Test", [0, 1], 85.5, 92.3, "2025-12-29", True, ""],
