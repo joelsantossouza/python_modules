@@ -54,7 +54,7 @@ def main() -> None:
     """Main function"""
     print("Alien Contact Log Validation")
     inputs: list[dict] = [
-        # ✅ Valid geral contact
+        # ❌ Invalid boolean
         {
             "ID": "AC_2024_001",
             "Timestamp": "2025-12-30",
