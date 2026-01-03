@@ -17,7 +17,15 @@ def spell_timer(func: callable) -> callable:
 
 def power_validator(min_power: int) -> callable:
     """Parameterized validation decorator"""
-    return
+    def decorator(func: callable) -> callable:
+        """Decorator that validate power parameter"""
+        def validator(*args, **kwargs) -> any:
+            """Execute function if args[0] >= min_power"""
+            if args[0] >= min_power:
+                return func(*args, **kwargs)
+            return "Insufficient power for this spell"
+        return validator
+    return decorator
 
 
 def retry_spell(max_attempts: int) -> callable:
@@ -43,10 +51,20 @@ def fireball() -> str:
     return "Fireball cast!"
 
 
+def kamehameha(power: int) -> str:
+    """Energy attack"""
+    return f"Spent {power} of power doing kamehameha!"
+
+
 if __name__ == "__main__":
     print("\nTesting spell timer...")
     print(f"Result: {fireball()}")
 
     print("\nTesting power validator...")
+    validator: callable = power_validator(10)
+    func_validated: callable = validator(kamehameha)
+    print(f"Without validation: {kamehameha(5)}")
+    print(f"With validation: {func_validated(5)}")
+
     print("\nTesting retry spell...")
     print("\nTesting MageGuild...")
