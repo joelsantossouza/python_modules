@@ -48,12 +48,10 @@ def memory_vault() -> dict[str, callable]:
 
     def store(key: Any, value: Any) -> None:
         """Store new values into memory"""
-        nonlocal memory
         memory[key] = value
 
     def recall(key: Any) -> Any:
         """Returns stored values into memory"""
-        nonlocal memory
         try:
             return memory[key]
         except Exception:
