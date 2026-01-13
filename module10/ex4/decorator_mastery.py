@@ -1,5 +1,6 @@
 from time import time
 from functools import wraps
+from random import randint
 
 
 def spell_timer(func: callable) -> callable:
@@ -29,8 +30,21 @@ def power_validator(min_power: int) -> callable:
 
 
 def retry_spell(max_attempts: int) -> callable:
-    """Retry decorator"""
-    return
+    """Retry decorator creator"""
+    def decorator(func: callable) -> callable:
+        """Retry decorator"""
+        def new_func(*args, **kwargs) -> str:
+            """Retry the func in max_attempts"""
+            for i in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception:
+                    print(
+                        f"Spell failed, retrying... ({i + 1}/{max_attempts})"
+                    )
+            return f"Spell casting failed after {max_attempts} attempts"
+        return new_func
+    return decorator
 
 
 class MageGuild:
@@ -56,6 +70,13 @@ def kamehameha(power: int) -> str:
     return f"Spent {power} of power doing kamehameha!"
 
 
+def try_spell() -> str:
+    """Spell that randomly can success or fail"""
+    if randint(0, 1) == 1:
+        raise Exception("Spell Failed")
+    return "Spell successfully casted"
+
+
 if __name__ == "__main__":
     print("\nTesting spell timer...")
     print(f"Result: {fireball()}")
@@ -67,4 +88,8 @@ if __name__ == "__main__":
     print(f"With validation: {func_validated(5)}")
 
     print("\nTesting retry spell...")
+    decorator_retry: callable = retry_spell(3)
+    retry_try_spell: callable = decorator_retry(try_spell)
+    print(retry_try_spell())
+
     print("\nTesting MageGuild...")
