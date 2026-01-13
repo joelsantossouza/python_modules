@@ -4,7 +4,7 @@ from typing import Callable
 def spell_combiner(spell1: callable, spell2: callable) -> callable:
     """Combine two spells"""
     try:
-        return lambda arg: (spell1(arg), spell2(arg))
+        return lambda *a, **kw: (spell1(*a, *kw), spell2(*a, *kw))
     except Exception as e:
         print(f"ERROR: {e}")
         exit(1)
@@ -22,7 +22,8 @@ def power_amplifier(base_spell: callable, multiplier: int) -> callable:
 def conditional_caster(condition: callable, spell: callable) -> callable:
     """Cast spell conditionally"""
     try:
-        return lambda arg: spell(arg) if condition(arg) else "Spell fizzled"
+        return lambda *a, **kw: \
+            spell(*a, *kw) if condition(*a, *kw) is True else "Spell fizzled"
     except Exception as e:
         print(f"ERROR: {e}")
         exit(1)
@@ -31,7 +32,7 @@ def conditional_caster(condition: callable, spell: callable) -> callable:
 def spell_sequence(spells: list[callable]) -> callable:
     """Create Spell sequence"""
     try:
-        return lambda arg: [spell(arg) for spell in spells]
+        return lambda *a, **kw: [spell(*a, **kw) for spell in spells]
     except Exception as e:
         print(f"ERROR: {e}")
         exit(1)
@@ -54,10 +55,10 @@ if __name__ == "__main__":
 
     print("\nTesting conditional caster...")
     conditional: Callable = conditional_caster(
-        lambda spell: spell[:6] == "spell:",
-        lambda spell: f"{spell} is valid -> doing spell"
+        lambda spell: spell[:7] == "spell->",
+        lambda spell: f"\'{spell}\' was casted"
     )
-    good_input: str = "spell: fire"
+    good_input: str = "spell-> fire"
     bad_input: str = "water"
     print(f"Input spell [{good_input}]: {conditional(good_input)}")
     print(f"Input spell [{bad_input}]: {conditional(bad_input)}")
@@ -66,3 +67,4 @@ if __name__ == "__main__":
     sequence: Callable = spell_sequence(
         [combiner, conditional, lambda string: f"{string} OK"]
     )
+    print(sequence("Goblin"))
