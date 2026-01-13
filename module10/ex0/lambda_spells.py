@@ -1,7 +1,10 @@
 def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     """Sort magical artifacts"""
     try:
-        return sorted(artifacts, key=lambda artifact: artifact['power'])
+        return sorted(
+            artifacts, key=lambda artifact: artifact['power'],
+            reverse=True
+        )
     except Exception as e:
         print(f"ERROR: {e}")
         exit(1)
@@ -47,8 +50,8 @@ if __name__ == "__main__":
     print("\nTesting artifact sorter...")
     artifact: list[dict] = [
         {"name": "Staff", "power": 92, "type": "Mage"},
-        {"name": "Orb", "power": 85, "type": "Crystal"},
         {"name": "Ring", "power": 20, "type": "Armor"},
+        {"name": "Orb", "power": 85, "type": "Crystal"},
     ]
     result: list[dict] = artifact_sorter(artifact)
     for i in range(len(artifact)):
