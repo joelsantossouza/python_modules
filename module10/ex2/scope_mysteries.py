@@ -86,6 +86,6 @@ if __name__ == "__main__":
     mem: dict = memory_vault()
     print(f"Non existing key: {mem['recall']('name')}")
     mem['store']("name", "joel")
-    print(f"Key value added: {mem['recall']('name')}")
+    print(f"Key('name') value added: {mem['recall']('name')}")
     mem['store']("name", 123456)
-    print(f"Key value updated: {mem['recall']('name')}")
+    print(f"Key('name') value updated: {mem['recall']('name')}")

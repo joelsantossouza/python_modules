@@ -41,6 +41,7 @@ def retry_spell(max_attempts: int) -> callable:
     """Retry decorator creator"""
     def decorator(func: callable) -> callable:
         """Retry decorator"""
+        @wraps(func)
         def new_func(*args, **kwargs) -> str:
             """Retry the func in max_attempts"""
             for i in range(max_attempts):

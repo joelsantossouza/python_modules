@@ -30,20 +30,20 @@ def spell_transformer(spells: list[str]) -> list[str]:
         exit(1)
 
 
-def mage_stats(mages: list[dict]) -> dict:
+def mage_stats(mages: list[dict]) -> dict | None:
     """Calculate statistics"""
     try:
-        avg_power: float = 0
-        if mages:
-            avg_power = sum(mage['power'] for mage in mages) / len(mages)
+        if not isinstance(mages, list) or not mages:
+            raise Exception()
+        avg_power: float = sum(mage['power'] for mage in mages) \
+            / len(mages)
         return {
             "max_power": max(mages, key=lambda mage: mage['power'])['power'],
             "min_power": min(mages, key=lambda mage: mage['power'])['power'],
             "avg_power": round(avg_power, 2)
         }
-    except Exception as e:
-        print(f"ERROR: {e}")
-        exit(1)
+    except Exception:
+        return None
 
 
 if __name__ == "__main__":

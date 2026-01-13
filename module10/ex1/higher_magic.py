@@ -4,7 +4,7 @@ from typing import Callable
 def spell_combiner(spell1: callable, spell2: callable) -> callable:
     """Combine two spells"""
     try:
-        return lambda *a, **kw: (spell1(*a, *kw), spell2(*a, *kw))
+        return lambda *a, **kw: (spell1(*a, **kw), spell2(*a, **kw))
     except Exception as e:
         print(f"ERROR: {e}")
         exit(1)
@@ -23,7 +23,7 @@ def conditional_caster(condition: callable, spell: callable) -> callable:
     """Cast spell conditionally"""
     try:
         return lambda *a, **kw: \
-            spell(*a, *kw) if condition(*a, *kw) is True else "Spell fizzled"
+            spell(*a, **kw) if condition(*a, **kw) is True else "Spell fizzled"
     except Exception as e:
         print(f"ERROR: {e}")
         exit(1)
