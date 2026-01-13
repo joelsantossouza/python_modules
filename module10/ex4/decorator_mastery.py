@@ -20,10 +20,18 @@ def power_validator(min_power: int) -> callable:
     """Parameterized validation decorator"""
     def decorator(func: callable) -> callable:
         """Decorator that validate power parameter"""
+        @wraps(func)
         def validator(*args, **kwargs) -> any:
             """Execute function if args[0] >= min_power"""
-            if args[0] >= min_power:
-                return func(*args, **kwargs)
+            if isinstance(args[0], int):
+                if args[0] >= min_power:
+                    return func(*args, **kwargs)
+            else:
+                try:
+                    if kwargs['power'] >= min_power:
+                        return func(*args, **kwargs)
+                except Exception:
+                    pass
             return "Insufficient power for this spell"
         return validator
     return decorator
@@ -49,12 +57,22 @@ def retry_spell(max_attempts: int) -> callable:
 
 class MageGuild:
     """Demonstrate staticmethod"""
-    @staticmethod
-    def validate_mage_name(name: str) -> bool:
+
+    def __init__(self) -> None:
         return
 
+    @staticmethod
+    def validate_mage_name(name: str) -> bool:
+        if not isinstance(name, str) or len(name) < 3:
+            return False
+        for chr in name:
+            if not chr.isalpha() and not chr.isspace():
+                return False
+        return True
+
+    @power_validator(10)
     def cast_spell(self, spell_name: str, power: int) -> str:
-        return
+        return f"Successfully cast {spell_name} with {power} power"
 
 
 @spell_timer
@@ -70,6 +88,7 @@ def kamehameha(power: int) -> str:
     return f"Spent {power} of power doing kamehameha!"
 
 
+@retry_spell(3)
 def try_spell() -> str:
     """Spell that randomly can success or fail"""
     if randint(0, 1) == 1:
@@ -88,8 +107,15 @@ if __name__ == "__main__":
     print(f"With validation: {func_validated(5)}")
 
     print("\nTesting retry spell...")
-    decorator_retry: callable = retry_spell(3)
-    retry_try_spell: callable = decorator_retry(try_spell)
-    print(retry_try_spell())
+    print(try_spell())
 
     print("\nTesting MageGuild...")
+    print(MageGuild.validate_mage_name("jo"))
+    print(MageGuild.validate_mage_name("joel42"))
+    print(MageGuild.validate_mage_name("joel!"))
+    print(MageGuild.validate_mage_name("joel_Souza"))
+    print(MageGuild.validate_mage_name("joel"))
+    print(MageGuild.validate_mage_name("joel Souza"))
+    mage_guild: MageGuild = MageGuild()
+    print(mage_guild.cast_spell("Fireball", power=9))
+    print(mage_guild.cast_spell("Fireball", power=11))
